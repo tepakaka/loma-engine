@@ -3,13 +3,13 @@ from pathlib import Path
 import geopandas as gpd
 from shapely.geometry import Point
 
-BOUNDARY_FILE = Path("data/boundaries/finland.geojson")
+from backend.weather.boundaries import load_finland_boundary
+
+OUTPUT_FILE = Path("data/grids/finland_grid.geojson")
 
 
 def main():
-    finland = gpd.read_file(BOUNDARY_FILE)
-
-    polygon = finland.geometry.union_all()
+    polygon = load_finland_boundary()
 
     points = []
 
@@ -28,7 +28,16 @@ def main():
 
         lat += step
 
+    grid = gpd.GeoDataFrame(
+        geometry=points,
+        crs="EPSG:4326",
+    )
+
+    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    grid.to_file(OUTPUT_FILE, driver="GeoJSON")
+
     print(f"Analysis points: {len(points)}")
+    print(f"Saved grid to {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
