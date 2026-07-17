@@ -11,3 +11,17 @@ class WeatherData:
     cloud_cover: int
 
     timestamp: str
+
+
+@dataclass
+class AnalysisResult:
+    latitude: float
+    longitude: float
+
+    temperature: float
+    wind_speed: float
+    cloud_cover: int
+
+    timestamp: str
+
+    camping_score: int
