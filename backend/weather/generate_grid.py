@@ -31,10 +31,14 @@ def generate_finland_grid(
     return points
 
 
-if __name__ == "__main__":
+def main():
     grid = generate_finland_grid()
 
     print(f"Grid contains {len(grid)} points:\n")
 
     for point in grid:
         print(point)
+
+
+if __name__ == "__main__":
+    main()
