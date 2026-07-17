@@ -1,43 +1,34 @@
-from dataclasses import dataclass
+from pathlib import Path
 
+import geopandas as gpd
+from shapely.geometry import Point
 
-@dataclass
-class GridPoint:
-    latitude: float
-    longitude: float
-
-
-def generate_finland_grid(
-    min_lat=59.5,
-    max_lat=70.5,
-    min_lon=20.0,
-    max_lon=32.0,
-    step=1.0,
-):
-    """
-    Luo säännöllisen ruudukon annetulle alueelle.
-    """
-
-    points = []
-
-    lat = min_lat
-    while lat <= max_lat:
-        lon = min_lon
-        while lon <= max_lon:
-            points.append(GridPoint(round(lat, 4), round(lon, 4)))
-            lon += step
-        lat += step
-
-    return points
+BOUNDARY_FILE = Path("data/boundaries/finland.geojson")
 
 
 def main():
-    grid = generate_finland_grid()
+    finland = gpd.read_file(BOUNDARY_FILE)
 
-    print(f"Grid contains {len(grid)} points:\n")
+    polygon = finland.geometry.union_all()
 
-    for point in grid:
-        print(point)
+    points = []
+
+    step = 0.5
+
+    lat = 59.5
+    while lat <= 70.5:
+        lon = 20.0
+        while lon <= 32.0:
+            point = Point(lon, lat)
+
+            if polygon.contains(point):
+                points.append(point)
+
+            lon += step
+
+        lat += step
+
+    print(f"Analysis points: {len(points)}")
 
 
 if __name__ == "__main__":
