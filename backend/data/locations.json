@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Kalajoki Hiekkasärkät",
+    "region": "Pohjois-Pohjanmaa",
+    "latitude": 64.228,
+    "longitude": 23.822,
+    "activities": [
+      "beach",
+      "camping",
+      "cycling"
+    ]
+  },
+  {
+    "name": "Hanko",
+    "region": "Uusimaa",
+    "latitude": 59.823,
+    "longitude": 22.968,
+    "activities": [
+      "beach",
+      "camping"
+    ]
+  },
+  {
+    "name": "PowerPark",
+    "region": "Etelä-Pohjanmaa",
+    "latitude": 63.132,
+    "longitude": 23.060,
+    "activities": [
+      "theme_park"
+    ]
+  }
+]

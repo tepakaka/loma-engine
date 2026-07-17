@@ -11,7 +11,14 @@ def get_weather(latitude: float, longitude: float) -> WeatherData:
         params={
             "latitude": latitude,
             "longitude": longitude,
-            "current": "temperature_2m,wind_speed_10m,cloud_cover",
+            "current": (
+                "temperature_2m,"
+                "wind_speed_10m,"
+                "cloud_cover,"
+                "precipitation,"
+                "precipitation_probability,"
+                "relative_humidity_2m"
+            ),
         },
         timeout=30,
     )
@@ -26,5 +33,8 @@ def get_weather(latitude: float, longitude: float) -> WeatherData:
         temperature=current["temperature_2m"],
         wind_speed=current["wind_speed_10m"],
         cloud_cover=current["cloud_cover"],
+        precipitation=current["precipitation"],
+        precipitation_probability=current["precipitation_probability"],
+        relative_humidity=current["relative_humidity_2m"],
         timestamp=current["time"],
     )

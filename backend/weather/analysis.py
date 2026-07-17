@@ -1,33 +1,38 @@
-from backend.weather.grid import load_grid
+from backend.data.locations import load_locations
 from backend.weather.service import WeatherService
-from backend.scoring.camping import camping_score
 from backend.weather.models import AnalysisResult
+from backend.scoring.engine import calculate_scores
 
 
 def analyze(limit: int = 5):
     service = WeatherService()
-    grid = load_grid()
+    locations = load_locations()
 
     results = []
 
-    for _, row in grid.head(limit).iterrows():
-        point = row.geometry
-
+    for location in locations[:limit]:
         weather = service.get_weather(
-            latitude=point.y,
-            longitude=point.x,
+            latitude=location.latitude,
+            longitude=location.longitude,
         )
 
+        scores = calculate_scores(weather)
+
         results.append(
-    AnalysisResult(
-        latitude=weather.latitude,
-        longitude=weather.longitude,
-        temperature=weather.temperature,
-        wind_speed=weather.wind_speed,
-        cloud_cover=weather.cloud_cover,
-        timestamp=weather.timestamp,
-        camping_score=camping_score(weather),
-    )
-)
+            AnalysisResult(
+                name=location.name,
+                region=location.region,
+                latitude=weather.latitude,
+                longitude=weather.longitude,
+                temperature=weather.temperature,
+                wind_speed=weather.wind_speed,
+                cloud_cover=weather.cloud_cover,
+                precipitation=weather.precipitation,
+                precipitation_probability=weather.precipitation_probability,
+                relative_humidity=weather.relative_humidity,
+                timestamp=weather.timestamp,
+                scores=scores,
+            )
+        )
 
     return results
