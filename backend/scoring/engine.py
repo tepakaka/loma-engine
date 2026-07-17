@@ -1,5 +1,5 @@
-from backend.scoring.camping import camping_score
 from backend.scoring.beach import beach_score
+from backend.scoring.camping import camping_score
 from backend.weather.models import WeatherData
 
 

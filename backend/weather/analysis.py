@@ -1,7 +1,7 @@
 from backend.data.locations import load_locations
-from backend.weather.service import WeatherService
-from backend.weather.models import AnalysisResult
 from backend.scoring.engine import calculate_scores
+from backend.weather.models import AnalysisResult
+from backend.weather.service import WeatherService
 
 
 def analyze(limit: int = 5):

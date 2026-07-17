@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 
-from backend.api.weather import router as weather_router
 from backend.api.analysis import router as analysis_router
 from backend.api.recommendations import router as recommendations_router
+from backend.api.weather import router as weather_router
 
 app = FastAPI(title="Loma Engine API")
 

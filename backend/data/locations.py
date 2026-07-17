@@ -3,7 +3,6 @@ from pathlib import Path
 
 from backend.weather.models import Location
 
-
 DATA_FILE = Path(__file__).parent / "locations.json"
 
 

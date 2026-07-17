@@ -31,6 +31,7 @@ class AnalysisResult:
     timestamp: str
     scores: dict[str, int]
 
+
 @dataclass
 class Location:
     name: str
